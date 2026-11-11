@@ -1,0 +1,33 @@
+{
+  "name": "ravan-nevis",
+  "version": "0.1.0",
+  "description": "RavanNevis - journal submission assistant",
+  "main": "main.js",
+  "author": "RavanNevis",
+  "scripts": {
+    "start": "npm run prepare-vendor && electron .",
+    "prepare-vendor": "node scripts/vendor.js",
+    "dist": "npm run prepare-vendor && electron-builder --win nsis --x64"
+  },
+  "dependencies": {
+    "jszip": "3.10.1",
+    "vazirmatn": "33.0.3"
+  },
+  "devDependencies": {
+    "electron": "33.2.1",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "ir.ravannevis.app",
+    "productName": "RavanNevis",
+    "files": ["main.js", "preload.js", "app/**/*"],
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }] },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "language": "1065"
+    }
+  }
+}

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>روان‌نویس</title>
+<link rel="stylesheet" href="vendor/fonts.css">
+<script src="vendor/jszip.min.js"></script>
+<style>
+:root{--bg:#f1f5f7;--sf:#fff;--ink:#17262f;--mut:#5b6b75;--ln:#d9e2e7;--ac:#1f6f8b;--acs:#e3f0f5;--ok:#2e7d5b;--oks:#e3f3ea;--wn:#9a6700;--wns:#fbf0d6;--er:#b3261e;--ers:#fbe4e2;--sb:#123a4a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0f161a;--sf:#182026;--ink:#e6edf1;--mut:#9aabb5;--ln:#2b373f;--ac:#6cc0dc;--acs:#1c3340;--ok:#5fc796;--oks:#173024;--wn:#e3b341;--wns:#3a2f12;--er:#ff8a80;--ers:#3d1c1a;--sb:#0b2530}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#0f161a;--sf:#182026;--ink:#e6edf1;--mut:#9aabb5;--ln:#2b373f;--ac:#6cc0dc;--acs:#1c3340;--ok:#5fc796;--oks:#173024;--wn:#e3b341;--wns:#3a2f12;--er:#ff8a80;--ers:#3d1c1a;--sb:#0b2530}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 Vazirmatn,Tahoma,system-ui,sans-serif}
+[hidden]{display:none!important}
+button,input,select,textarea{font:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+aside{background:var(--sb);color:#e8f2f6;padding:18px 12px;display:flex;flex-direction:column;gap:6px}
+.br{display:flex;align-items:center;gap:10px;padding:0 6px 14px;font-size:20px;font-weight:800}
+.nv{display:flex;flex-direction:column;gap:2px}
+.nv button{background:none;border:0;color:#bfd4dc;text-align:start;padding:9px 12px;border-radius:8px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.nv button:hover{background:rgba(255,255,255,.07)}
+.nv button.on{background:rgba(255,255,255,.14);color:#fff;font-weight:600}
+.nv em{font-style:normal;background:#e3b341;color:#2b2000;border-radius:999px;font-size:12px;padding:0 8px}
+.me{margin-top:auto;border-top:1px solid rgba(255,255,255,.15);padding:12px 6px 0;font-size:13px}
+.me button{background:none;border:0;color:#9fc0cc;cursor:pointer;padding:0;text-decoration:underline}
+main{padding:22px 24px 48px;max-width:920px;width:100%}
+.ph h1{font-size:22px;margin:0;font-weight:800}
+.note{font-size:13px;color:var(--mut);margin:2px 0}
+.ph{margin-bottom:14px}
+.demo{display:inline-block;background:var(--wns);color:var(--wn);border-radius:6px;padding:0 8px;font-size:12px;margin-inline-start:8px;font-weight:400}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:16px;margin-bottom:12px}
+h2{font-size:16px;margin:0 0 8px}
+p{margin:6px 0}
+label{display:block;font-size:13px;color:var(--mut);margin:8px 0 2px}
+input[type=text],input[type=email],input[type=password],select,textarea{width:100%;padding:8px 10px;border:1px solid var(--ln);border-radius:8px;background:var(--bg);color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.pr{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 18px;cursor:pointer;margin-top:8px}
+.pr:disabled{opacity:.45;cursor:not-allowed}
+.gh{background:none;border:1px solid var(--ln);color:var(--ink);border-radius:8px;padding:5px 14px;cursor:pointer}
+.chip{display:inline-block;border-radius:999px;padding:0 10px;font-size:12px;white-space:nowrap}
+.ok{background:var(--oks);color:var(--ok)}.wn{background:var(--wns);color:var(--wn)}.er{background:var(--ers);color:var(--er)}.mu{background:var(--acs);color:var(--ac)}
+.li{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--ln);flex-wrap:wrap}
+.li:last-child{border:0}
+.li>span:first-child{flex:1;min-width:200px}
+.li b{display:block}
+.li.need{background:var(--wns);border-radius:8px;padding:10px 12px;margin:6px 0;border:0}
+.li.bad{background:var(--ers);border-radius:8px;padding:10px 12px;margin:6px 0;border:0}
+.acts{display:flex;gap:8px;flex-wrap:wrap}
+.acts .pr{margin:0}
+.sp{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto}
+.sp span{flex:1;min-width:100px;display:flex;gap:6px;align-items:center;justify-content:center;font-size:13px;color:var(--mut);background:var(--sf);border:1px solid var(--ln);border-radius:8px;padding:5px}
+.sp i{font-style:normal;width:20px;height:20px;border-radius:50%;background:var(--ln);color:var(--ink);font-size:12px;line-height:20px;text-align:center}
+.sp .on{border-color:var(--ac);color:var(--ac);font-weight:600}.sp .on i,.sp .dn i{background:var(--ac);color:#fff}.sp .dn i{background:var(--ok)}
+.bar{height:8px;border-radius:99px;background:var(--ln);overflow:hidden;margin:3px 0}
+.bar div{height:100%;background:var(--ac);border-radius:99px}
+.bar.g div{background:var(--ok)}
+.m2{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:var(--mut)}
+.rk{width:30px;height:30px;border-radius:9px;background:var(--acs);color:var(--ac);font-weight:800;text-align:center;line-height:30px;flex:none}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:start;padding:8px 10px;border-bottom:1px solid var(--ln);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:13px}
+.fl{background:var(--oks);color:var(--ok);border-radius:10px;padding:10px 14px;margin-bottom:12px}
+.au{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.au .card{max-width:430px;width:100%;padding:22px}
+.tabs{display:flex;gap:6px;margin:10px 0}
+.tabs button{flex:1;background:none;border:0;border-bottom:3px solid var(--ln);padding:6px;color:var(--mut);cursor:pointer}
+.tabs button.on{border-color:var(--ac);color:var(--ac);font-weight:600}
+.modal{position:fixed;inset:0;background:rgba(10,20,26,.6);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
+.modal .card{max-width:480px;width:100%;margin:0}
+.modal.off{display:none}
+.err{color:var(--er);font-size:13px;min-height:20px}
+@media (max-width:760px){.app{grid-template-columns:1fr}aside{flex-direction:column;padding:10px}.nv{flex-direction:row;overflow-x:auto}.nv button{white-space:nowrap}.me{display:none}main{padding:16px 14px 40px}}
+</style>
+</head>
+<body>
+<div class="modal off" id="md" role="dialog" aria-modal="true"></div>
+
+<div class="au" id="au"></div>
+
+<div class="app" id="app" hidden>
+ <aside>
+  <div class="br"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#e3f0f5"/><path d="M9 23l2-6 9-9 4 4-9 9-6 2z" fill="#1f6f8b"/></svg>روان‌نویس</div>
+  <div class="nv" id="nv"></div>
+  <div class="me"><div id="who"></div><button onclick="logout()">خروج</button></div>
+ </aside>
+ <main id="mn"></main>
+</div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})};
+var ACC=[
+ {n:"ORCID",d:"ورود رسمی با OAuth",s:"خواندن پروفایل و پژوهش‌ها، افزودن مقاله‌ی منتشرشده"},
+ {n:"سیویلیکا",d:"نشست مجاز شما",s:"خواندن پروفایل، افزودن مقاله به رزومه"},
+ {n:"نور (همانندجو)",d:"نشست مجاز شما",s:"بارگذاری فایل و دریافت گزارش شباهت"},
+ {n:"سامانه‌های مجله",d:"نشست مجاز شما",s:"ثبت ارسال، دریافت نامه‌ها، ارسال اصلاحیه"}];
+var J=[
+ {n:"مجله‌ی نمونه‌ی آموزش زبان",c:"any",w:8000,l:["فارسی"],a:34,t:["آموزش زبان","یادگیری ترکیبی"]},
+ {n:"نشریه‌ی نمونه‌ی پژوهش‌های ادبی",c:"fac",w:7000,l:["فارسی","عربی"],a:27,t:["ادبیات","زبان‌شناسی کاربردی","ترجمه"]},
+ {n:"Sample Journal of Applied Linguistics",c:"any",w:8500,l:["English"],a:16,t:["زبان‌شناسی کاربردی","آموزش زبان"]},
+ {n:"مجله‌ی نمونه‌ی مطالعات عربی",c:"phd",w:9000,l:["عربی","فارسی"],a:30,t:["مطالعات عربی","ترجمه"]},
+ {n:"مجله‌ی نمونه‌ی ترجمه‌پژوهی",c:"any",w:9000,l:["فارسی","عربی"],a:38,t:["ترجمه","مطالعات عربی"]},
+ {n:"مجله‌ی نمونه‌ی فناوری آموزشی",c:"any",w:7500,l:["فارسی"],a:31,t:["یادگیری ترکیبی","آموزش زبان","فناوری آموزشی"]},
+ {n:"مجله‌ی نمونه‌ی زبان‌شناسی",c:"fac",w:8000,l:["فارسی"],a:22,t:["زبان‌شناسی کاربردی","آموزش زبان"]}];
+var RK=['الف','ب'];
+J.forEach(function(j,i){j.rk=['الف','ب','ب','الف','ب','الف','ب'][i];j.src=['نورمگز، مگیران','ایران ژورنال','انسانی، مگیران','نورمگز','مگیران','ایران ژورنال، انسانی','نورمگز'][i]});
+J.push({n:'همایش نمونه‌ی ملی آموزش زبان',cf:1,ix:['ISC'],d:'۱۴۰۵/۰۹/۳۰',c:'any',w:9000,l:['فارسی'],a:62,t:['آموزش زبان','یادگیری ترکیبی'],src:'hamayesh.ir'},{n:'کنفرانس نمونه‌ی بین‌المللی زبان‌شناسی',cf:1,ix:['ISI','ISC'],d:'۱۴۰۵/۱۰/۱۵',c:'any',w:6000,l:['English','فارسی'],a:45,t:['زبان‌شناسی کاربردی','آموزش زبان'],src:'hamayesh.ir'},{n:'همایش نمونه‌ی ترجمه و مطالعات عربی',cf:1,ix:['ISC'],d:'۱۴۰۵/۰۹/۲۰',c:'any',w:8000,l:['فارسی','عربی'],a:58,t:['ترجمه','مطالعات عربی'],src:'hamayesh.ir'},{n:'همایش نمونه‌ی فناوری آموزشی',cf:1,ix:[],d:'۱۴۰۵/۰۹/۱۰',c:'any',w:8000,l:['فارسی'],a:70,t:['فناوری آموزشی','یادگیری ترکیبی'],src:'hamayesh.ir'},{n:'همایش نمونه‌ی ادبیات تطبیقی',cf:1,ix:['ISC'],d:'۱۴۰۵/۱۱/۰۱',c:'any',w:8000,l:['فارسی','عربی'],a:55,t:['ادبیات','ترجمه'],src:'hamayesh.ir'});
+var STEPS=["قالب‌بندی طبق راهنمای نویسندگان مجله","سبک ارجاع‌دهی و فهرست منابع","املا و نگارش فارسی، English و عربی","فایل مشخصات نویسندگان و Cover Letter از روی پروفایل","اعلامیه‌ی استفاده از هوش مصنوعی از روی گزارش استفاده","نویسنده‌ی مسئول مطابق قواعد مجله","اظهارنامه‌ها: تعارض منافع، انتقال حق نشر، استفاده از امضا"];
+var BASE=[["آموزش زبان",11],["یادگیری ترکیبی",5],["زبان‌شناسی کاربردی",4],["ترجمه",2]];
+var S={acc:[0,0,0,0],kind:'j',sp:0,p:-1,j:-1,st:[],ok:{},sim:12,auto:1,fl:"",run:0,
+ drafts:[{t:"تأثیر یادگیری ترکیبی بر مهارت گفتاری زبان‌آموزان",w:7600,l:"فارسی",f:["آموزش زبان","یادگیری ترکیبی"]},{t:"بلاغت در ترجمه‌ی متون عربی به فارسی",w:6200,l:"فارسی",f:["مطالعات عربی","ترجمه"]}],
+ sent:[{t:"نقش بازخورد همتا در نگارش دانشگاهی",j:"مجله‌ی نمونه‌ی آموزش زبان",d:"۱۴۰۵/۰۷/۲۰",s:"در داوری",rev:0,p:{t:"نقش بازخورد همتا در نگارش دانشگاهی",w:7000,l:"فارسی",f:["آموزش زبان"]}}],
+ accd:[{t:"سنجش انگیزش زبان‌آموزان بزرگسال",j:"Sample Journal of Applied Linguistics",doi:"10.0000/demo.2026.7",r:[0,0],f:["آموزش زبان"]}]};
+var U=null,A={m:"in",e:"",n:"",em:""},P="send",IDEAS=[];
+S.cx={ISC:1,ISI:1};S.dc=[0,0,0,0,0,0];S.dp=0;S.jc={url:'',login:0,ph:0};
+try{IDEAS=JSON.parse(localStorage.getItem("rn-ideas")||"[]")}catch(e){IDEAS=[]}
+function sv(){try{localStorage.setItem("rn-ideas",JSON.stringify(IDEAS))}catch(e){}}
+function modal(h){$("md").innerHTML="<div class='card'>"+h+"</div>";$("md").classList.remove("off")}
+function close_(){$("md").classList.add("off")}
+
+/* ---------- auth ---------- */
+function pw(v){var s=0;if(v.length>=10)s++;if(/[a-z]/.test(v)&&/[A-Z]/.test(v))s++;if(/\d/.test(v))s++;if(/[^\w\s]/.test(v))s++;return s}
+function rAuth(){var h="<div class='card'><h2 style='font-size:22px'>روان‌نویس</h2><p class='note'>ارسال و پیگیری مقاله، قدم‌به‌قدم</p>";
+ if(A.m=="ver"){h+="<p>کد شش‌رقمی به <b>"+esc(A.em)+"</b> فرستاده شد. <span class='note'>(در این نمونه کد ۱۲۳۴۵۶ است)</span></p><label for='cd'>کد تأیید ایمیل</label><input type='text' id='cd' maxlength='6' inputmode='numeric'><div class='err' id='er'></div><button class='pr' onclick='verify()'>تأیید و ادامه</button>"}
+ else{h+="<div class='tabs'><button class='"+(A.m=="in"?"on":"")+"' onclick='A.m=\"in\";rAuth()'>ورود</button><button class='"+(A.m=="up"?"on":"")+"' onclick='A.m=\"up\";rAuth()'>ساخت حساب</button></div>";
+  if(A.m=="up")h+="<label for='nm'>نام و نام خانوادگی</label><input type='text' id='nm' autocomplete='name'>";
+  h+="<label for='em'>ایمیل</label><input type='email' id='em' autocomplete='email'><label for='pw'>رمز عبور</label><input type='password' id='pw' autocomplete='"+(A.m=="up"?"new-password":"current-password")+"' oninput='ps()'>";
+  if(A.m=="up")h+="<div class='bar' id='pb'><div style='width:0'></div></div><div class='note' id='pt'>حداقل ۱۰ نویسه، ترکیب حروف بزرگ و کوچک، عدد و نماد</div><label for='p2'>تکرار رمز عبور</label><input type='password' id='p2' autocomplete='new-password'>";
+  h+="<div class='err' id='er'>"+esc(A.e)+"</div><button class='pr' onclick='"+(A.m=="up"?"signup()":"login()")+"'>"+(A.m=="up"?"ساخت حساب":"ورود")+"</button>"+(A.m=="in"?" <button class='gh' onclick='demo()'>ورود آزمایشی</button>":"")}
+ $("au").innerHTML=h+"</div>"}
+function ps(){var s=pw($("pw").value),b=$("pb");if(!b)return;b.firstChild.style.width=s*25+"%";b.className="bar"+(s>=3?" g":"");$("pt").textContent=["بسیار ضعیف","ضعیف","متوسط","قوی","بسیار قوی"][s]}
+function signup(){var n=$("nm").value.trim(),e=$("em").value.trim(),p=$("pw").value;A.e="";
+ if(!n)A.e="نام را وارد کنید.";else if(!/^\S+@\S+\.\S+$/.test(e))A.e="ایمیل معتبر نیست.";else if(pw(p)<3)A.e="رمز عبور ضعیف است؛ دست‌کم سه مورد از چهار شرط را داشته باشد.";else if(p!=$("p2").value)A.e="تکرار رمز با رمز یکسان نیست.";
+ if(A.e){rAuth();return}A.n=n;A.em=e;A.m="ver";rAuth()}
+function verify(){if($("cd").value!="123456"){$("er").textContent="کد درست نیست.";return}U={n:A.n,e:A.em,fa:0};consent()}
+function login(){var e=$("em").value.trim();if(!e||!$("pw").value){A.e="ایمیل و رمز عبور را وارد کنید.";rAuth();return}U={n:"پژوهشگر نمونه",e:e,fa:0};consent()}
+function demo(){U={n:"پژوهشگر نمونه",e:"demo@example.com",fa:0};consent()}
+function consent(){modal("<h2>موافقت با استفاده از امضا</h2><p>با بارگذاری امضا و درخواست ارسال مقاله، موافقت می‌کنید روان‌نویس امضای شما را در فایل‌ها و فرم‌های ارسال همین مقاله به کار ببرد. امضای هم‌نویسندگان فقط با تأیید خودشان استفاده می‌شود.</p><label style='display:flex;gap:8px;color:var(--ink)'><input type='checkbox' id='cc' onchange='$(\"cb\").disabled=!this.checked' style='margin-top:8px'> موافقم و شرایط را خوانده‌ام</label><button class='pr' id='cb' disabled onclick='enter()'>شروع</button>")}
+function enter(){close_();$("au").hidden=true;$("app").hidden=false;$("who").textContent=U.n;nav("send")}
+function logout(){U=null;A={m:"in",e:"",n:"",em:""};$("app").hidden=true;$("au").hidden=false;rAuth()}
+
+/* ---------- nav ---------- */
+var PG=[["send","ارسال مقاله"],["sent","مقاله‌های در حال ارسال"],["acd","پذیرفته‌شده و رزومه"],["fld","فیلد پژوهشی"],["idea","پژوهش‌های آینده"],["set","حساب و دسترسی‌ها"]];
+PG.splice(5,0,['jc','اتصال به مجله'],['dc','مرکز داده'],['cf','همایش‌ها']);
+function nav(p){P=p;$("nv").innerHTML=PG.map(function(x){var n=x[0]=="sent"?S.sent.length:0;return"<button class='"+(x[0]==p?"on":"")+"' onclick='nav(\""+x[0]+"\")'><span>"+x[1]+"</span>"+(n?"<em>"+n+"</em>":"")+"</button>"}).join("");
+ var f=S.fl;S.fl="";$("mn").innerHTML=({send:rSend,sent:rSent,acd:rAcd,fld:rFld,idea:rIdea,set:rSet,jc:rJc,dc:rDc,cf:rCf})[p]()+"";
+ if(f)$("mn").insertAdjacentHTML("afterbegin","<div class='fl' role='status'>"+f+"</div>");
+ scrollTo(0,0)}
+function pg(t,s,b){return"<div class='ph'><h1>"+t+"</h1><p class='note'>"+s+"</p></div>"+b}
+var det=function(){return S.acc[0]||S.acc[1]};
+
+/* ---------- rules and ranking ---------- */
+function chk(j,p){var r=[];
+ r.push(j.c=="any"?0:j.c=="fac"?"نویسنده‌ی مسئول باید عضو هیئت علمی باشد.":"نویسنده‌ی مسئول باید دکتری یا بالاتر باشد.");
+ r.push(p.w<=j.w?0:"تعداد کلمات "+(p.w-j.w)+" بیشتر از حد مجاز ("+j.w+") است.");
+ r.push(j.l.indexOf(p.l)>=0?0:"این مجله مقاله‌ی "+p.l+" نمی‌پذیرد.");return r}
+function rank(p){return J.map(function(j,i){var r=chk(j,p).filter(Boolean),m=j.t.filter(function(x){return p.f.indexOf(x)>=0}).length,
+ rel=m?Math.min(100,Math.round(m/p.f.length*85)+15):8,ac=Math.max(2,Math.round(j.a*(0.5+rel/130)*(r.length?0.35:1)));
+ return{i:i,j:j,r:r,rel:rel,ac:ac,sc:rel*0.5+Math.min(100,ac*2.4)*0.5-r.length*22}}).filter(function(x){return S.kind=='c'?x.j.cf&&x.j.ix.some(function(t){return S.cx[t]}):!x.j.cf&&RK.indexOf(x.j.rk)>=0}).sort(function(a,b){return b.sc-a.sc}).slice(0,5)}
+
+/* ---------- send ---------- */
+function rSend(){var h="",st=["انتخاب مقاله","مجله‌ی مناسب","ویرایش","ارسال"];
+ h+="<div class='sp'>"+st.map(function(x,i){return"<span class='"+(i==S.sp?"on":i<S.sp?"dn":"")+"'><i>"+(i<S.sp?"✓":i+1)+"</i>"+x+"</span>"}).join("")+"</div>";
+ if(S.sp==0){h+=nwCard()+"<div class='card'><h2>پیش‌نویس‌ها</h2>"+(S.drafts.length?S.drafts.map(function(d,i){return"<div class='li'><span><b>"+esc(d.t)+"</b><span class='note'>"+d.l+"، "+d.w+" کلمه، حوزه: "+d.f.join("، ")+"</span></span><button class='pr' style='margin:0' onclick='pp("+i+")'>انتخاب</button></div>"}).join(""):"<p>پیش‌نویسی نیست.</p>")+"</div>"}
+ else if(S.sp==1){var p=S.drafts[S.p];h+="<div class='card'><div class='acts' style='margin-bottom:8px'><button class='"+(S.kind=='c'?'gh':'pr')+"' style='margin:0' onclick='sk(0)'>مجله (رتبه‌ی الف و ب)</button><button class='"+(S.kind=='c'?'pr':'gh')+"' style='margin:0' onclick='sk(1)'>همایش (ISC و ISI)</button></div><h2>پنج مورد پیشنهادی</h2><p class='note'>بر اساس ربط به موضوع مقاله و احتمال پذیرش. احتمال پذیرش تخمین است و تضمین نیست.</p>";
+  if(!det())h+="<p>برای تشخیص خودکار جایگاه علمی و بررسی قواعد، ORCID یا سیویلیکا را وصل کنید.</p><button class='pr' onclick='nav(\"set\")'>رفتن به اتصال حساب‌ها</button></div>";
+  else h+=rank(p).map(function(x,k){return"<div class='li "+(x.r.length?"bad":"")+"'><span class='rk'>"+(k+1)+"</span><span><b>"+x.j.n+" <span class='chip mu'>"+(x.j.cf?x.j.ix.join(' و ')+'، مهلت '+x.j.d:'رتبه '+x.j.rk)+"</span></b><div class='m2'><div>ربط به موضوع: "+x.rel+"٪<div class='bar'><div style='width:"+x.rel+"%'></div></div></div><div>احتمال پذیرش: "+x.ac+"٪<div class='bar g'><div style='width:"+Math.min(100,x.ac*2.4)+"%'></div></div></div></div>"+(x.r.length?"<span class='note'>"+x.r.filter(Boolean).join(" ")+"</span>":"<span class='chip ok'>قواعد سازگار</span>")+"</span><button class='pr' style='margin:0' onclick='pj("+x.i+")'>انتخاب</button></div>"}).join("")+"</div>";
+  h+="<button class='gh' onclick='S.sp=0;nav(\"send\")'>بازگشت</button>"}
+ else if(S.sp==2){h+="<div class='card'><h2>ویرایش قدم‌به‌قدم</h2><p class='note'>مجله: "+J[S.j].n+". روان‌نویس مرحله‌ها را خودش انجام می‌دهد و فقط جای لازم می‌ایستد.</p>";
+  STEPS.forEach(function(s,i){var c=S.st[i]||"w",n=c=="n"?need(i):0;
+   h+="<div class='li "+(n?"need":"")+"'><span><b>"+s+"</b>"+(n?n.t:"")+"</span>"+(n?"<span class='acts'>"+n.b.map(function(b){return"<button class='pr' onclick='ac("+b[1]+")'>"+b[0]+"</button>"}).join("")+"</span>":"<span class='chip "+(c=="d"?"ok":c=="r"?"mu":"wn")+"'>"+(c=="d"?"انجام شد":c=="r"?"در حال انجام":"در انتظار")+"</span>")+"</div>"});
+  var dn=S.st.length==STEPS.length&&S.st.every(function(x){return x=="d"});
+  h+=(dn?"<button class='pr' onclick='S.sp=3;nav(\"send\")'>ادامه به ارسال</button>":"<button class='pr' onclick='nx()' "+(S.run?"disabled":"")+">"+(S.st.length?"ادامه":"شروع ویرایش خودکار")+"</button>")+"</div><button class='gh' onclick='S.sp=1;nav(\"send\")'>بازگشت</button>"}
+ else{var g=[{ok:S.acc[2]&&S.acc[3],h:"حساب‌های لازم",t:S.acc[2]&&S.acc[3]?"نور و سامانه‌ی مجله متصل‌اند.":"نور و سامانه‌های مجله را در بخش حساب‌ها وصل کنید."},
+  {ok:S.sim<70,h:"شباهت با مقاله‌های ارسال‌شده و آرشیو",t:"بیشترین شباهت "+S.sim+"٪ (آستانه‌ی توقف ۷۰٪)."+(S.sim>=70?" برای جلوگیری از ارسال مجدد، ارسال متوقف شد.":"")},
+  {ok:1,h:"مراحل ویرایش و اظهارنامه‌ها",t:"همه تأیید شده‌اند."}],bad=g.filter(function(x){return!x.ok}).length;
+  h+="<div class='card'><h2>بررسی پیش از ارسال</h2>"+g.map(function(x){return"<div class='li "+(x.ok?"":"bad")+"'><span><b>"+x.h+"</b><span class='note'>"+x.t+"</span></span><span class='chip "+(x.ok?"ok":"er")+"'>"+(x.ok?"تأیید":"مشکل")+"</span></div>"}).join("")
+  +"<label for='sm'>نتیجه‌ی مقایسه با آرشیو (برای نمایش نمونه)</label><select id='sm' onchange='S.sim=+this.value;nav(\"send\")'><option value='12'"+(S.sim==12?" selected":"")+">شباهت کم (۱۲٪)</option><option value='85'"+(S.sim==85?" selected":"")+">شباهت زیاد (۸۵٪)</option></select><button class='pr' "+(bad?"disabled":"")+" onclick='send()'>"+(bad?"ارسال ممکن نیست":"ارسال به مجله")+"</button></div><button class='gh' onclick='S.sp=2;nav(\"send\")'>بازگشت</button>"}
+ return pg("ارسال مقاله","از انتخاب مقاله تا ارسال، با کمترین دخالت شما",h)}
+function pp(i){S.p=i;S.sp=1;nav("send")}
+function pj(i){S.j=i;S.sp=2;S.st=[];S.ok={};nav("send")}
+function need(i){var p=S.drafts[S.p],j=J[S.j],r=chk(j,p);
+ if(i==0){if(r[2])return{t:r[2]+" مجله‌ی دیگری انتخاب کنید.",b:[["انتخاب مجله‌ی دیگر",4]]};
+  if(r[1]&&!S.ok.w)return{t:r[1]+" پیشنهاد: حذف تکرارها و فشرده‌سازی مرور ادبیات.",b:[["تأیید کوتاه‌سازی",1]]}}
+ if(i==5&&r[0]&&!S.ok.c)return{t:r[0]+" اگر استادی در این پژوهش مشارکت واقعی داشته، می‌توان او را به نویسندگان افزود؛ نویسنده‌ی افتخاری مجاز نیست.",b:[["هم‌نویسنده‌ی هیئت علمی با مشارکت واقعی دارم",2],["انتخاب مجله‌ی دیگر",4]]};
+ if(i==6&&!S.ok.d)return{t:"این اظهارنامه‌ها به خود شما مربوط‌اند و بدون تأیید شما ارسال نمی‌شوند.",b:[["مرور و تأیید",3]]};return 0}
+function nx(){var i=0;while(i<STEPS.length&&S.st[i]=="d")i++;if(i>=STEPS.length){nav("send");return}
+ if(S.st[i]=="n"&&need(i)){nav("send");return}
+ S.run=1;S.st[i]="r";nav("send");
+ setTimeout(function(){if(P!="send"||S.sp!=2){S.run=0;return}var n=need(i);S.run=0;if(n){S.st[i]="n";nav("send")}else{S.st[i]="d";nav("send");setTimeout(function(){if(P=="send"&&S.sp==2)nx()},250)}},600)}
+function ac(x){if(x==4){S.sp=1;nav("send");return}S.ok[["","w","c","d"][x]]=1;S.run=0;nx()}
+function send(){var d=S.drafts.splice(S.p,1)[0];S.sent.unshift({t:d.t,j:J[S.j].n,d:"۱۴۰۵/۰۸/۲۰",s:"در انتظار داور",rev:0,p:d});S.sp=0;S.p=-1;S.fl="مقاله برای بازبینی نهایی آماده ارسال شد و به فهرست «در حال ارسال» رفت (نسخه‌ی ۰٫۱: ارسال خودکار به سایت مجله هنوز فعال نیست؛ بسته‌ی ارسال را خودتان در سایت مجله ثبت کنید).";nav("sent")}
+
+/* ---------- new paper ---------- */
+var NW=null;
+var FK={"آموزش زبان":["آموزش زبان","زبان‌آموز","یادگیری زبان","language learning","language teaching","efl"],"یادگیری ترکیبی":["ترکیبی","blended","hybrid"],"زبان‌شناسی کاربردی":["زبان‌شناسی","applied linguistics"],"ترجمه":["ترجمه","translation","مترجم"],"مطالعات عربی":["عربی","العربية","arabic"],"ادبیات":["ادبیات","شعر","literature"],"فناوری آموزشی":["فناوری آموزشی","educational technology","e-learning","یادگیری الکترونیک"]};
+function nwCard(){var n=NW,h="<div class='card'><h2>افزودن مقاله‌ی جدید</h2>";
+ if(!n){h+="<p class='note'>فایل مقاله را انتخاب کنید. روان‌نویس عنوان، زبان، تعداد کلمات و حوزه‌ی پژوهشی را خودش درمی‌آورد و فقط برای تأیید نشان می‌دهد. فایل روی همین دستگاه خوانده می‌شود.</p><label for='pf'>فایل مقاله (Word یا متن ساده)</label><input type='file' id='pf' accept='.docx,.txt' onchange='rdP(this.files[0])'><div class='err' id='pe'></div><button class='gh' onclick='NW={t:\"مقاله‌ی نمونه درباره‌ی آموزش زبان\",w:6800,l:\"فارسی\",f:[\"آموزش زبان\"]};nav(\"send\")'>استفاده از مقاله‌ی نمونه</button>"}
+ else{h+="<label for='nt'>عنوان</label><input type='text' id='nt' value=\""+esc(n.t)+"\"><div class='li'><span><b>زبان</b></span><span class='chip mu'>"+n.l+"</span></div><div class='li'><span><b>تعداد کلمات</b></span><span class='chip mu'>"+n.w+"</span></div><label>حوزه‌ی پژوهشی (تشخیص خودکار، قابل اصلاح)</label><div>"+Object.keys(FK).map(function(k,i){return"<label style='display:inline-flex;gap:4px;align-items:center;margin:2px 0 2px 12px;color:var(--ink)'><input type='checkbox' class='nf' value='"+i+"' "+(n.f.indexOf(k)>=0?"checked":"")+"> "+k+"</label>"}).join("")+"</div><div class='err' id='pe'></div><div class='acts'><button class='pr' onclick='addP()'>افزودن به پیش‌نویس‌ها</button><button class='gh' style='margin-top:8px' onclick='NW=null;nav(\"send\")'>انصراف</button></div>"}
+ return h+"</div>"}
+function an(t,nm){var ls=t.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean),fa=(t.match(/[پچژگ]/g)||[]).length,ar=(t.match(/[\u0600-\u06FF]/g)||[]).length,la=(t.match(/[A-Za-z]/g)||[]).length,lo=t.toLowerCase();
+ return{t:(ls[0]||nm).slice(0,150),w:(t.match(/\S+/g)||[]).length,l:ar>la?(fa>=3?"فارسی":"عربی"):"English",f:Object.keys(FK).filter(function(k){return FK[k].some(function(w){return lo.indexOf(w.toLowerCase())>=0})})}}
+function rdP(f){if(!f)return;var e=$("pe"),nm=f.name.replace(/\.[^.]+$/,""),dn=function(t){NW=an(t,nm);nav("send")};
+ if(/\.txt$/i.test(f.name)){var r=new FileReader();r.onload=function(){dn(String(r.result))};r.readAsText(f)}
+ else if(/\.docx$/i.test(f.name)&&window.JSZip){JSZip.loadAsync(f).then(function(z){return z.file("word/document.xml").async("string")}).then(function(x){dn(x.replace(/<\/w:p>/g,"\n").replace(/<[^>]+>/g,"").replace(/&amp;/g,"&"))}).catch(function(){e.textContent="خواندن فایل ممکن نشد. یک فایل Word معتبر انتخاب کنید."})}
+ else e.textContent="فعلاً فقط Word (docx) و متن ساده (txt) پشتیبانی می‌شود. PDF در نسخه‌ی کامل اضافه می‌شود."}
+function addP(){var t=$("nt").value.trim(),ks=Object.keys(FK),f=[].slice.call(document.querySelectorAll(".nf")).filter(function(c){return c.checked}).map(function(c){return ks[+c.value]});
+ if(!t){$("pe").textContent="عنوان را وارد کنید.";return}if(!f.length){$("pe").textContent="دست‌کم یک حوزه‌ی پژوهشی انتخاب کنید.";return}
+ S.drafts.unshift({t:t,w:NW.w,l:NW.l,f:f});NW=null;S.fl="مقاله به پیش‌نویس‌ها اضافه شد.";nav("send")}
+
+/* ---------- sent / accepted ---------- */
+function rSent(){var h=S.sent.length?S.sent.map(function(x,i){return"<div class='card'><div class='li' style='padding-top:0'><span><b>"+esc(x.t)+"</b><span class='note'>"+x.j+"، ارسال: "+x.d+"</span></span><span class='chip "+(x.s.indexOf("اصلاح")>=0?"wn":"mu")+"'>"+x.s+"</span></div>"
+  +(x.rev?"<div class='tw'><table><thead><tr><th>نظر داور</th><th>پاسخ پیشنهادی</th><th>تغییر در متن</th></tr></thead><tbody><tr><td>روش نمونه‌گیری روشن نیست.</td><td>توضیح روش نمونه‌گیری و ملاک‌های ورود به پژوهش</td><td>بخش روش، پاراگراف دوم</td></tr></tbody></table></div><p class='note'>نسخه‌ی اصلاح‌شده با Track Changes آماده است و بدون تأیید شما ارسال نمی‌شود.</p><button class='pr' onclick='ev("+i+",4)'>تأیید و ارسال اصلاحیه</button>"
+  :"<p class='note'>رویدادی را که از سردبیر رسیده شبیه‌سازی کنید:</p><div class='acts'><button class='gh' onclick='ev("+i+",1)'>درخواست اصلاح</button><button class='gh' onclick='ev("+i+",2)'>پذیرش</button><button class='gh' onclick='ev("+i+",3)'>رد</button></div>")+"</div>"}).join(""):"<div class='card'><p>مقاله‌ای در حال ارسال نیست. از صفحه‌ی «ارسال مقاله» شروع کنید.</p></div>";
+ return pg("مقاله‌های در حال ارسال","وضعیت هر مقاله از ایمیل‌های سردبیر دسته‌بندی می‌شود",h)}
+function ev(i,t){var x=S.sent[i];
+ if(t==1){x.s="اصلاحیه خواسته شد";x.rev=1}
+ else if(t==4){x.s="اصلاحیه ارسال شد";x.rev=0;S.fl="اصلاحیه ارسال شد (نمونه)."}
+ else if(t==3){S.drafts.push(x.p);S.sent.splice(i,1);S.fl="مقاله رد شد و قفل ارسال آن باز شد. به پیش‌نویس‌ها برگشت."}
+ else{var r=[S.auto&&S.acc[0]?1:0,S.auto&&S.acc[1]?1:0];S.accd.unshift({t:x.t,j:x.j,doi:"10.0000/ravan.2026."+(S.accd.length+1),r:r,f:x.p.f});S.sent.splice(i,1);
+  S.fl="مقاله پذیرفته شد."+(r[0]||r[1]?" در رزومه‌ی "+[r[0]?"ORCID":"",r[1]?"سیویلیکا":""].filter(Boolean).join(" و ")+" ثبت شد.":" ثبت رزومه منتظر اتصال حساب‌ها یا تأیید شماست.");nav("acd");return}
+ nav("sent")}
+function rAcd(){var h="<div class='card'><label style='display:flex;gap:8px;align-items:center;color:var(--ink);margin:0'><input type='checkbox' "+(S.auto?"checked":"")+" onchange='S.auto=this.checked'> پس از پذیرش، مقاله را خودکار در رزومه ثبت کن و خبرم کن</label><p class='note'>هر ثبت قابل برگرداندن است. DOI در نمونه فرضی است.</p></div>";
+ h+=S.accd.length?S.accd.map(function(x,i){return"<div class='card'><b>"+esc(x.t)+"</b><p class='note'>"+x.j+"، DOI: "+x.doi+"</p>"+[["ORCID",0],["سیویلیکا",1]].map(function(s){var d=x.r[s[1]];return"<div class='li'><span>رزومه‌ی "+s[0]+"</span>"+(d?"<span class='acts'><span class='chip ok'>ثبت شد</span><button class='gh' onclick='rs("+i+","+s[1]+",0)'>برگرداندن</button></span>":S.acc[s[1]]?"<button class='pr' style='margin:0' onclick='rs("+i+","+s[1]+",1)'>ثبت در رزومه</button>":"<span class='acts'><span class='chip wn'>حساب متصل نیست</span><button class='gh' onclick='nav(\"set\")'>اتصال</button></span>")+"</div>"}).join("")+"</div>"}).join(""):"<div class='card'><p>هنوز مقاله‌ی پذیرفته‌شده‌ای نیست.</p></div>";
+ return pg("پذیرفته‌شده و رزومه","مقاله‌های چاپ‌شده و وضعیت ثبت‌شان در رزومه",h)}
+function rs(i,s,v){S.accd[i].r[s]=v;nav("acd")}
+
+/* ---------- fields ---------- */
+function rFld(){var m={},t={};
+ if(det())BASE.forEach(function(b){m[b[0]]=(m[b[0]]||0)+b[1]});
+ var all=S.drafts.map(function(x){return[x.t,x.f]}).concat(S.sent.map(function(x){return[x.t,x.p.f]}),S.accd.map(function(x){return[x.t,x.f]}));
+ all.forEach(function(a){a[1].forEach(function(f){m[f]=(m[f]||0)+1;(t[f]=t[f]||[]).push(a[0])})});
+ var k=Object.keys(m).sort(function(a,b){return m[b]-m[a]}),mx=m[k[0]]||1;
+ var h="<div class='card'>"+(det()?"<p class='note'>شامل پژوهش‌های ثبت‌شده در حساب‌های متصل و مقاله‌های داخل روان‌نویس.</p>":"<p class='note'>فقط مقاله‌های داخل روان‌نویس شمرده شده است. با اتصال ORCID یا سیویلیکا، سوابق قبلی هم اضافه می‌شود.</p>")+
+ (k.length?k.map(function(f){return"<div class='li'><span><b>"+f+"</b><div class='bar'><div style='width:"+Math.round(m[f]/mx*100)+"%'></div></div>"+(t[f]?"<span class='note'>"+t[f].map(esc).join("؛ ")+"</span>":"")+"</span><span class='chip mu'>"+m[f]+" پژوهش</span></div>"}).join(""):"<p>هنوز داده‌ای نیست.</p>")+"</div>";
+ return pg("فیلد پژوهشی","حوزه‌های پژوهشی شما بر اساس مقاله‌هایتان",h)}
+
+/* ---------- ideas ---------- */
+function rIdea(){var h="<div class='card'><h2>ایده‌ی تازه</h2><label for='it'>موضوع</label><input type='text' id='it'><label for='in'>یادداشت</label><textarea id='in'></textarea><div class='row'><div><label for='ip'>اولویت</label><select id='ip'><option>زیاد</option><option selected>متوسط</option><option>کم</option></select></div><div><label for='iff'>حوزه</label><input type='text' id='iff' placeholder='مثلاً آموزش زبان'></div></div><button class='pr' onclick='addI()'>ذخیره‌ی ایده</button></div>";
+ h+=IDEAS.length?IDEAS.map(function(x,i){return"<div class='card'><div class='li' style='padding:0;border:0'><span><b style='"+(x.dn?"text-decoration:line-through;color:var(--mut)":"")+"'>"+esc(x.t)+"</b><span class='note'>"+(x.f?esc(x.f)+"، ":"")+"اولویت "+x.p+"</span></span><span class='acts'><button class='gh' onclick='dnI("+i+")'>"+(x.dn?"بازگرداندن":"انجام شد")+"</button><button class='gh' onclick='rmI("+i+")'>حذف</button></span></div>"+(x.n?"<p>"+esc(x.n)+"</p>":"")+"</div>"}).join(""):"<div class='card'><p>هنوز ایده‌ای ننوشته‌اید. هر موضوعی که به ذهنتان رسید همین‌جا بنویسید تا فراموش نشود.</p></div>";
+ return pg("پژوهش‌های آینده","موضوع‌هایی که به ذهنتان می‌رسد را اینجا نگه دارید",h)}
+function addI(){var t=$("it").value.trim();if(!t){$("it").focus();return}IDEAS.unshift({t:t,n:$("in").value.trim(),p:$("ip").value,f:$("iff").value.trim(),dn:0});sv();nav("idea")}
+function dnI(i){IDEAS[i].dn=!IDEAS[i].dn;sv();nav("idea")}
+function rmI(i){IDEAS.splice(i,1);sv();nav("idea")}
+
+/* ---------- connect, data center, conferences ---------- */
+function sk(c){S.kind=c?'c':'j';nav('send')}
+function host(u){try{var x=new URL(u);return /^https?:$/.test(x.protocol)?x.hostname:''}catch(e){return ''}}
+function sdp(v,c){S.dp=+v;nav(c?'cf':'dc')}
+function rJc(){var c=S.jc;
+ var h=`<div class='card'><h2>اتصال به سامانه‌ی مجله</h2><p class='note'>لینک سایت مجله را بدهید. روان‌نویس با اجازه‌ی شما و از طریق حساب پژوهشگری شما وارد سامانه می‌شود، راهنمای نویسندگان و فرم ارسال را می‌خواند و مقاله را بر همان اساس آماده می‌کند.</p><label for='ju'>لینک سایت مجله</label><input type='text' id='ju' dir='ltr' placeholder='https://journal.example.ir' value='${esc(c.url).replace(/'/g,'&#39;')}'><div class='err' id='je'></div><div class='li'><span><b>حساب پژوهشگر در سایت مجله</b><span class='note'>پنجره‌ی ورود خود سایت باز می‌شود و شما وارد می‌شوید. رمز شما به روان‌نویس داده نمی‌شود و فقط نشست ورود نگه داشته می‌شود.</span></span>${c.login?`<span class='chip ok'>وارد شده</span>`:`<button class='pr' style='margin:0' onclick='jl()'>ورود امن</button>`}</div>${c.ph==1?`<p>در حال خواندن راهنمای نویسندگان و فرم ارسال...</p>`:`<button class='pr' ${c.login?'':'disabled'} onclick='jr()'>خواندن ساختار مجله</button>`}</div>`;
+ if(c.ph==2)h+=jres(c);
+ return pg('اتصال به مجله','ساختار هر مجله از خود سایتش خوانده می‌شود',h)}
+function jl(){var u=$('ju').value.trim();if(!host(u)){$('je').textContent='لینک معتبر با http یا https وارد کنید.';return}S.jc.url=u;S.jc.login=1;S.jc.ph=0;nav('jc')}
+function jr(){var u=$('ju').value.trim();if(!host(u)){$('je').textContent='لینک معتبر با http یا https وارد کنید.';return}S.jc.url=u;S.jc.ph=1;nav('jc');setTimeout(function(){S.jc.ph=2;if(P=='jc')nav('jc')},1300)}
+function jres(c){var R=[['عنوان و چکیده فارسی و انگلیسی','از فایل مقاله',1],['کلیدواژه‌ها','از فایل مقاله',1],['مشخصات نویسندگان، وابستگی سازمانی و ORCID','از پروفایل شما',1],['نویسنده‌ی مسئول','تشخیص خودکار از سوابق حساب',1],['سبک ارجاع و ساختار بخش‌ها','از راهنمای نویسندگان مجله',1],['حداکثر تعداد کلمات','از راهنمای نویسندگان مجله',1],['فایل بدون نام نویسندگان و صفحه‌ی عنوان','ساخته می‌شود',1],['تعهدنامه‌ی انتقال حق نشر و تعارض منافع','تأیید خود شما لازم است',0],['پیشنهاد داوران','اگر مجله بخواهد از شما پرسیده می‌شود',0]];
+ return `<div class='card'><h2>اطلاعات دریافت‌شده از ${esc(host(c.url))}</h2><p class='note'>این بخش در نمونه شبیه‌سازی شده است. در نسخه‌ی کامل از صفحه‌های واقعی همین مجله خوانده می‌شود.</p><div class='tw'><table><thead><tr><th>مورد لازم مجله</th><th>منبع در روان‌نویس</th><th></th></tr></thead><tbody>${R.map(function(r){return `<tr><td>${r[0]}</td><td>${r[1]}</td><td><span class='chip ${r[2]?'ok':'wn'}'>${r[2]?'آماده':'نیاز به شما'}</span></td></tr>`}).join('')}</tbody></table></div><label for='jk'>رتبه‌ی نشریه در journals.msrt.ir (نمونه)</label><select id='jk'><option>الف</option><option selected>ب</option><option>ج</option></select><button class='pr' onclick='ja()'>افزودن به پایگاه مجله‌ها</button></div>`}
+function ja(){var c=S.jc,k=$('jk').value;J.push({n:host(c.url),c:'any',w:8000,l:['فارسی'],a:30,t:['آموزش زبان','یادگیری ترکیبی'],rk:k,src:'سایت مجله'});S.jc={url:'',login:0,ph:0};S.fl=RK.indexOf(k)>=0?'مجله به پایگاه اضافه شد و در پیشنهادها می‌آید.':'مجله به پایگاه اضافه شد، اما چون رتبه‌اش الف یا ب نیست در پیشنهادها نمی‌آید.';nav('jc')}
+var DCS=[['نورمگز','فهرست نشریات و مقاله‌ها'],['ایران ژورنال','اطلاعات نشریات'],['مگیران','فهرست نشریات و مقاله‌ها'],['انسانی (ensani.ir)','مقاله‌های علوم انسانی'],['کمیسیون نشریات وزارت علوم (journals.msrt.ir)','مرجع رتبه‌ی الف و ب'],['همایش‌ها (hamayesh.ir)','همایش‌ها و نمایه‌هایشان']];
+function dsy(i){S.dc[i]=1;nav('dc')}
+function rDc(){var h=`<div class='card'><h2>منابع مرکز داده</h2><p class='note'>روان‌نویس از این سایت‌ها فهرست نشریات، موضوع و مقاله‌های منتشرشده را می‌گیرد تا موضوع مقاله‌ی شما را بسنجد. رتبه‌ی الف و ب از پایگاه کمیسیون نشریات وزارت علوم گرفته می‌شود. در نمونه، همگام‌سازی شبیه‌سازی می‌شود.</p>${DCS.map(function(d,i){return `<div class='li'><span><b>${d[0]}</b><span class='note'>${d[1]}</span></span>${S.dc[i]?`<span class='chip ok'>همگام‌شده</span>`:`<button class='pr' style='margin:0' onclick='dsy(${i})'>همگام‌سازی</button>`}</div>`}).join('')}</div><div class='card'><h2>فیلتر رتبه</h2><span class='chip ok'>رتبه‌ی الف</span> <span class='chip ok'>رتبه‌ی ب</span><p class='note'>فقط نشریات این دو رتبه تحلیل و با مقاله‌ی شما سنجیده می‌شوند.</p></div><div class='card'><h2>تحلیل موضوع مقاله</h2>`,D=S.drafts;
+ if(!D.length)h+='<p>پیش‌نویسی نیست.</p>';
+ else if(!S.dc[4]||!(S.dc[0]||S.dc[1]||S.dc[2]||S.dc[3]))h+='<p>برای تحلیل، پایگاه رتبه‌ی وزارت علوم و دست‌کم یکی از سایت‌های نشریات را همگام کنید.</p>';
+ else{var p=D[Math.min(S.dp,D.length-1)],k=S.kind;S.kind='j';var r=rank(p);S.kind=k;
+  h+=`<label for='dp'>مقاله</label><select id='dp' onchange='sdp(this.value,0)'>${D.map(function(d,i){return `<option value='${i}' ${i==S.dp?'selected':''}>${esc(d.t)}</option>`}).join('')}</select>`+r.map(function(x,i){return `<div class='li'><span class='rk'>${i+1}</span><span><b>${x.j.n} <span class='chip mu'>رتبه‌ی ${x.j.rk}</span></b><span class='note'>منبع: ${x.j.src}</span><div class='bar'><div style='width:${x.rel}%'></div></div><span class='note'>ربط به موضوع ${x.rel}٪، احتمال پذیرش (تخمین) ${x.ac}٪</span></span></div>`}).join('')}
+ return pg('مرکز داده','پایگاه آنلاین نشریات برای سنجش موضوع مقاله',h+'</div>')}
+function cxt(i){var t=['ISC','ISI'][i];S.cx[t]=S.cx[t]?0:1;nav('cf')}
+function cs(i){S.p=Math.min(S.dp,S.drafts.length-1);S.j=i;S.kind='c';S.sp=2;S.st=[];S.ok={};nav('send')}
+function rCf(){var D=S.drafts,h=`<div class='card'><h2>نمایه‌ی همایش</h2><p class='note'>همایش‌ها از hamayesh.ir و سایت‌های متصل گرفته می‌شوند. ISI یعنی نمایه‌های Clarivate (Web of Science) و ISC یعنی پایگاه استنادی علوم جهان اسلام. فقط همایش‌های دارای نمایه‌ی انتخاب‌شده می‌آیند.</p>${['ISC','ISI'].map(function(t,i){return `<label style='display:inline-flex;gap:6px;align-items:center;margin:0 0 0 14px;color:var(--ink)'><input type='checkbox' ${S.cx[t]?'checked':''} onchange='cxt(${i})'> ${t}</label>`}).join('')}</div><div class='card'><h2>همایش‌های مناسب مقاله</h2>`;
+ if(!D.length)h+='<p>پیش‌نویسی نیست.</p>';
+ else{var p=D[Math.min(S.dp,D.length-1)],k=S.kind;S.kind='c';var r=rank(p);S.kind=k;
+  h+=`<label for='dp'>مقاله</label><select id='dp' onchange='sdp(this.value,1)'>${D.map(function(d,i){return `<option value='${i}' ${i==S.dp?'selected':''}>${esc(d.t)}</option>`}).join('')}</select>`+(r.length?r.map(function(x,i){return `<div class='li'><span class='rk'>${i+1}</span><span><b>${x.j.n}</b> ${x.j.ix.map(function(t){return `<span class='chip ok'>${t}</span>`}).join(' ')}<span class='note'>مهلت ارسال: ${x.j.d}</span><div class='bar'><div style='width:${x.rel}%'></div></div><span class='note'>ربط به موضوع ${x.rel}٪، احتمال پذیرش (تخمین) ${x.ac}٪${x.r.length?'، '+x.r.join(' '):''}</span></span><button class='pr' style='margin:0' onclick='cs(${x.i})'>ارسال به این همایش</button></div>`}).join(''):'<p>همایشی با این نمایه‌ها پیدا نشد.</p>')}
+ return pg('همایش‌ها','همایش‌های دارای نمایه‌ی ISC و ISI با همان مسیر ارسال مقاله','')+h+'</div>'}
+
+/* ---------- settings ---------- */
+function rSet(){var h="<div class='card'><h2>حساب کاربری</h2><div class='li'><span><b>"+esc(U.n)+"</b><span class='note'>"+esc(U.e)+"</span></span><span class='chip ok'>ایمیل تأیید شده</span></div>"
+ +"<div class='li'><span><b>جایگاه علمی</b><span class='note'>از سوابق ORCID یا سیویلیکا تشخیص داده می‌شود و ورودی دستی ندارد.</span></span>"+(det()?"<span class='chip ok'>دانشجوی ارشد</span>":"<span class='chip wn'>پس از اتصال حساب</span>")+"</div>"
+ +"<div class='li'><span><b>ورود دومرحله‌ای</b><span class='note'>کد یک‌بارمصرف هنگام ورود</span></span><label style='margin:0;display:flex;gap:6px;align-items:center;color:var(--ink)'><input type='checkbox' "+(U.fa?"checked":"")+" onchange='U.fa=this.checked'> فعال</label></div></div>"
+ +"<div class='card'><h2>حساب‌های متصل</h2><p class='note'>روان‌نویس فقط با اجازه‌ی شما وارد حساب‌ها می‌شود و از طرف شما کار می‌کند. رمزها رمزنگاری‌شده روی همین دستگاه می‌مانند و هر زمان می‌توانید دسترسی را لغو کنید.</p>"
+ +ACC.map(function(a,i){var c=S.acc[i];return"<div class='li'><span><b>"+a.n+" <span class='chip "+(c?"ok":"mu")+"'>"+(c?"متصل":a.d)+"</span></b><span class='note'>دسترسی: "+a.s+"</span></span>"+(c?"<button class='gh' onclick='S.acc["+i+"]=0;nav(\"set\")'>لغو دسترسی</button>":"<span class='acts'><button class='pr' onclick='S.acc["+i+"]=1;nav(\"set\")'>حساب دارم، اجازه می‌دهم</button><button class='gh' onclick='mk("+i+")'>ساخت حساب</button></span>")+"</div>"}).join("")+"</div>"
+ +"<div class='card'><h2>هوش مصنوعی</h2><div class='row'><div><label for='prv'>ارائه‌دهنده</label><select id='prv' onchange='pn()'><option>Claude</option><option>GPT</option><option>Gemini</option><option>مدل محلی روی همین دستگاه</option></select></div><div><label for='key'>کلید API</label><input type='password' id='key' autocomplete='off' placeholder='در این نمونه ذخیره نمی‌شود'></div></div><p class='note' id='pn'></p></div>";
+ setTimeout(pn,0);return pg("حساب و دسترسی‌ها","ساخت حساب، اتصال سامانه‌ها و تنظیم دسترسی",h)}
+function pn(){var e=$("pn");if(!e)return;e.textContent=$("prv").value.indexOf("مدل")==0?"متن مقاله از این دستگاه خارج نمی‌شود.":"متن‌هایی که برای تحلیل می‌فرستید به سرویس بیرونی می‌رود و پیش از هر درخواست نشان داده می‌شود."}
+function mk(i){modal("<h2>ساخت حساب در "+ACC[i].n+"</h2><p>روان‌نویس فرم ثبت‌نام را با نام و ایمیل شما پر می‌کند. کپچا و کد تأیید ایمیل را باید خودتان وارد کنید.</p><label for='mc'>کد تأیید ایمیل <span class='note'>(در این نمونه ۱۲۳۴۵۶)</span></label><input type='text' id='mc' maxlength='6' inputmode='numeric'><div class='err' id='me'></div><div class='acts'><button class='pr' onclick='mk2("+i+")'>ساخت و اتصال</button><button class='gh' onclick='close_()'>انصراف</button></div>")}
+function mk2(i){if($("mc").value!="123456"){$("me").textContent="کد درست نیست.";return}S.acc[i]=1;close_();S.fl="حساب "+ACC[i].n+" ساخته و متصل شد.";nav("set")}
+
+/* ---------- optional AI ---------- */
+S.ai={on:0,pv:0,t:[1,1,1,1]};
+var AIP=['Claude','GPT','Gemini','مدل محلی روی همین دستگاه'],AIT=['تحلیل دقیق‌تر موضوع و حوزه‌ی مقاله','پیشنهاد اصلاح بر اساس ساختار مجله','پیش‌نویس پاسخ به داوران','ویرایش نگارشی و بازنویسی'];
+function aiLb(){STEPS[4]=S.ai.on?'اعلامیه‌ی استفاده از هوش مصنوعی از روی گزارش استفاده':'اعلامیه‌ی عدم استفاده از هوش مصنوعی (اگر مجله بخواهد)'}
+function aiOn(c){S.ai.on=c?1:0;aiLb();nav('dc')}
+function aiTx(){return S.ai.pv==3?'متن مقاله از این دستگاه خارج نمی‌شود.':'متن‌هایی که برای تحلیل می‌فرستید به سرویس بیرونی می‌رود.'}
+function aiN(v){S.ai.pv=+v;var e=$('ain');if(e)e.textContent=aiTx()}
+function aiCard(){var a=S.ai,h=`<div class='card' id='ai'><h2>هوش مصنوعی <span class='chip ${a.on?'ok':'mu'}'>${a.on?'روشن':'خاموش'}</span></h2><p class='note'>اختیاری است. بدون آن هم روان‌نویس کار می‌کند: قالب‌بندی با قواعد مجله، املا با دیکشنری و پیشنهاد مجله با تطبیق موضوع انجام می‌شود. روشن کردنش تحلیل موضوع، بازنویسی و پاسخ به داوران را دقیق‌تر می‌کند.</p><label style='display:flex;gap:8px;align-items:center;color:var(--ink)'><input type='checkbox' ${a.on?'checked':''} onchange='aiOn(this.checked)'> از هوش مصنوعی استفاده کن</label>`;
+ if(a.on)h+=`<div class='row'><div><label for='aipv'>ارائه‌دهنده</label><select id='aipv' onchange='aiN(this.value)'>${AIP.map(function(x,i){return `<option value='${i}' ${i==a.pv?'selected':''}>${x}</option>`}).join('')}</select></div><div><label for='aik'>کلید API</label><input type='password' id='aik' autocomplete='off' placeholder='در این نمونه ذخیره نمی‌شود'></div></div><p class='note' id='ain'>${aiTx()}</p><label>کارهایی که با هوش مصنوعی انجام می‌شود</label>${AIT.map(function(x,i){return `<label style='display:flex;gap:8px;align-items:center;color:var(--ink);margin:2px 0'><input type='checkbox' ${a.t[i]?'checked':''} onchange='S.ai.t[${i}]=this.checked?1:0'> ${x}</label>`}).join('')}<label style='display:flex;gap:8px;align-items:center;color:var(--ink)'><input type='checkbox' checked> پیش از هر درخواست نشان بده چه متنی فرستاده می‌شود</label><p class='note'>هر استفاده در گزارش ثبت می‌شود و اعلامیه‌ی مجله از همان ساخته می‌شود. اگر کلید وارد نشود، روان‌نویس بدون هوش مصنوعی ادامه می‌دهد.</p>`;
+ return h+'</div>'}
+var _rd=rDc;rDc=function(){return _rd()+aiCard()};
+var _rs=rSet;rSet=function(){var s=_rs(),i=s.indexOf(`<div class='card'><h2>هوش مصنوعی</h2>`);return (i<0?s:s.slice(0,i))+`<div class='card'><h2>هوش مصنوعی</h2><p class='note'>اختیاری است و از بخش مرکز داده تنظیم می‌شود.</p><button class='gh' onclick='gdc()'>رفتن به مرکز داده</button></div>`};
+function gdc(){nav('dc')}
+/* ---------- desktop edition ---------- */
+(function(){
+ var K='rn-state-v1',base=J.length,BN='نسخه‌ی ۰٫۱ آزمایشی: ورود امن و خواندن سایت مجله واقعی‌اند. ارسال خودکار، اتصال ORCID و سیویلیکا و نور، مرکز داده و تشخیص جایگاه علمی هنوز شبیه‌سازی‌اند و چیزی به هیچ سایتی ارسال نمی‌شود.';
+ S.drafts=[];S.sent=[];S.accd=[];
+ try{var d=JSON.parse(localStorage.getItem(K)||'null');if(d){S.drafts=d.dr||[];S.sent=d.se||[];S.accd=d.ac||[];if(d.acc)S.acc=d.acc;S.auto=d.au?1:0;S.ai.on=d.ai?1:0;(d.cj||[]).forEach(function(j){J.push(j)})}}catch(e){}
+ function save(){try{localStorage.setItem(K,JSON.stringify({dr:S.drafts,se:S.sent,ac:S.accd,acc:S.acc,au:S.auto,ai:S.ai.on,cj:J.slice(base)}))}catch(e){}}
+ var _nav=nav;
+ nav=function(p){_nav(p);save();$('mn').insertAdjacentHTML('afterbegin',`<div class='fl' style='background:var(--wns);color:var(--wn)'>${BN}</div>`)};
+ if(window.rn){
+  jl=function(){var u=$('ju').value.trim();if(!host(u)){$('je').textContent='لینک معتبر با http یا https وارد کنید.';return}
+   S.jc.url=u;$('je').textContent='پنجره‌ی ورود سایت باز شد. پس از ورود، آن را ببندید.';
+   rn.journalLogin(u).then(function(r){if(r&&r.ok){S.jc.login=1;S.jc.ph=0;S.jc.scan=null}nav('jc')})};
+  jr=function(){var u=$('ju').value.trim();if(!host(u)){$('je').textContent='لینک معتبر با http یا https وارد کنید.';return}
+   S.jc.url=u;S.jc.ph=1;nav('jc');
+   rn.journalScan(u).then(function(d){S.jc.scan=d;S.jc.ph=2;if(P=='jc')nav('jc')}).catch(function(){S.jc.scan={error:'خواندن سایت ممکن نشد.'};S.jc.ph=2;if(P=='jc')nav('jc')})};
+  var _jres=jres;
+  jres=function(c){return c.scan?jreal(c):_jres(c)};
+ }
+ window.jreal=function(c){var d=c.scan;
+  if(d.error)return `<div class='card'><h2>خواندن ساختار مجله</h2><p class='err'>${esc(d.error)}</p></div>`;
+  return `<div class='card'><h2>اطلاعات خوانده‌شده از ${esc(d.host)}</h2><p class='note'>این اطلاعات از صفحه‌های واقعی سایت خوانده شده است. هر موردی که پیدا نشد، هنگام ارسال از شما پرسیده می‌شود.</p><div class='li'><span><b>عنوان سایت</b></span><span>${esc(d.title||'—')}</span></div><div class='li'><span><b>صفحه‌های راهنما و ارسال</b></span><span>${d.pages.length?d.pages.map(esc).join('، '):'پیدا نشد'}</span></div><div class='li'><span><b>حداکثر تعداد کلمات</b></span><span class='chip ${d.maxWords?'ok':'wn'}'>${d.maxWords||'پیدا نشد'}</span></div><div class='li'><span><b>سبک ارجاع</b></span><span class='chip ${d.refStyle?'ok':'wn'}'>${esc(d.refStyle||'پیدا نشد')}</span></div><label for='jk'>رتبه‌ی نشریه (در journals.msrt.ir بررسی و انتخاب کنید)</label><select id='jk'><option>الف</option><option>ب</option><option>ج</option></select><button class='pr' onclick='jaR()'>افزودن به پایگاه مجله‌ها</button></div>`};
+ window.jaR=function(){var d=S.jc.scan,k=$('jk').value;
+  J.push({n:d.host,c:'any',w:d.maxWords||99999,l:['فارسی','English'],a:30,t:[],rk:k,src:'سایت مجله'});
+  S.jc={url:'',login:0,ph:0};
+  S.fl=RK.indexOf(k)>=0?'مجله به پایگاه اضافه شد و در پیشنهادها می‌آید.':'مجله به پایگاه اضافه شد، اما چون رتبه‌اش الف یا ب نیست در پیشنهادها نمی‌آید.';nav('jc')};
+})();
+aiLb();
+rAuth();
+</script>
+</body>
+</html>
